@@ -1,4 +1,4 @@
-From 6a30b31d31fb175f808ccedec1564943b9e91e78 Mon Sep 17 00:00:00 2001
+From a96e8c59ecac84096d870b42701a504791a8cc8c Mon Sep 17 00:00:00 2001
 From: Ondrej Mosnacek <omosnace@redhat.com>
 Date: Thu, 23 Jan 2020 13:57:13 +0100
 Subject: [PATCH] libsepol: fix CIL_KEY_* build errors with -fno-common
@@ -13,15 +13,15 @@ Upstream: https://github.com/SELinuxProject/selinux/commit/a96e8c59ecac84096d870
 Signed-off-by: Ondrej Mosnacek <omosnace@redhat.com>
 Signed-off-by: Matt Weber <matthew.weber@rockwellcollins.com>
 ---
- cil/src/cil.c          | 161 +++++++++++++++++++++
- cil/src/cil_internal.h | 320 ++++++++++++++++++++---------------------
- 2 files changed, 321 insertions(+), 160 deletions(-)
+ cil/src/cil.c          | 162 ++++++++++++++++
+ cil/src/cil_internal.h | 322 ++++++++++++++++----------------
+ 2 files changed, 323 insertions(+), 161 deletions(-)
 
 diff --git a/cil/src/cil.c b/cil/src/cil.c
-index 2a7ec06..14bd443 100644
+index de729cf8..d222ad3a 100644
 --- a/cil/src/cil.c
 +++ b/cil/src/cil.c
-@@ -77,6 +77,167 @@ int cil_sym_sizes[CIL_SYM_ARRAY_NUM][CIL_SYM_NUM] = {
+@@ -77,6 +77,168 @@ int cil_sym_sizes[CIL_SYM_ARRAY_NUM][CIL_SYM_NUM] = {
  	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
  };
  
@@ -100,6 +100,7 @@ index 2a7ec06..14bd443 100644
 +char *CIL_KEY_LOW;
 +char *CIL_KEY_HIGH;
 +char *CIL_KEY_LOW_HIGH;
++char *CIL_KEY_GLBLUB;
 +char *CIL_KEY_HANDLEUNKNOWN;
 +char *CIL_KEY_HANDLEUNKNOWN_ALLOW;
 +char *CIL_KEY_HANDLEUNKNOWN_DENY;
@@ -190,10 +191,10 @@ index 2a7ec06..14bd443 100644
  {
  	/* Initialize CIL Keys into strpool */
 diff --git a/cil/src/cil_internal.h b/cil/src/cil_internal.h
-index 6ff3228..b07c068 100644
+index 30fab649..9bdcbdd0 100644
 --- a/cil/src/cil_internal.h
 +++ b/cil/src/cil_internal.h
-@@ -74,166 +74,166 @@ enum cil_pass {
+@@ -74,167 +74,167 @@ enum cil_pass {
  /*
  	Keywords
  */
@@ -272,6 +273,7 @@ index 6ff3228..b07c068 100644
 -char *CIL_KEY_LOW;
 -char *CIL_KEY_HIGH;
 -char *CIL_KEY_LOW_HIGH;
+-char *CIL_KEY_GLBLUB;
 -char *CIL_KEY_HANDLEUNKNOWN;
 -char *CIL_KEY_HANDLEUNKNOWN_ALLOW;
 -char *CIL_KEY_HANDLEUNKNOWN_DENY;
@@ -432,6 +434,7 @@ index 6ff3228..b07c068 100644
 +extern char *CIL_KEY_LOW;
 +extern char *CIL_KEY_HIGH;
 +extern char *CIL_KEY_LOW_HIGH;
++extern char *CIL_KEY_GLBLUB;
 +extern char *CIL_KEY_HANDLEUNKNOWN;
 +extern char *CIL_KEY_HANDLEUNKNOWN_ALLOW;
 +extern char *CIL_KEY_HANDLEUNKNOWN_DENY;

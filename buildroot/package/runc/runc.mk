@@ -13,7 +13,7 @@ RUNC_WORKSPACE = Godeps/_workspace
 
 RUNC_LDFLAGS = -X main.gitCommit=$(RUNC_VERSION)
 
-RUNC_TAGS = cgo static_build apparmor
+RUNC_TAGS = cgo static_build
 
 ifeq ($(BR2_PACKAGE_LIBSECCOMP),y)
 RUNC_TAGS += seccomp

@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-DHCP_VERSION = 4.4.1
+DHCP_VERSION = 4.4.2
 DHCP_SITE = http://ftp.isc.org/isc/dhcp/$(DHCP_VERSION)
 DHCP_INSTALL_STAGING = YES
 DHCP_LICENSE = MPL-2.0
@@ -76,7 +76,8 @@ endif
 
 ifeq ($(BR2_PACKAGE_DHCP_CLIENT),y)
 define DHCP_INSTALL_CLIENT
-	mkdir -p $(TARGET_DIR)/var/lib/dhcp
+	mkdir -p $(TARGET_DIR)/var/lib
+	(cd $(TARGET_DIR)/var/lib; ln -snf /tmp dhcp)
 	$(MAKE) -C $(@D)/client DESTDIR=$(TARGET_DIR) sbindir=/sbin \
 		install-sbinPROGRAMS
 	$(INSTALL) -m 0644 -D package/dhcp/dhclient.conf \

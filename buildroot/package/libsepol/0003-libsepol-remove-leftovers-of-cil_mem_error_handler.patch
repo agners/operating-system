@@ -1,4 +1,4 @@
-From 5f5f0dce25d46af57ddabd8713e548480f2460ab Mon Sep 17 00:00:00 2001
+From 3d32fc24d6aff360a538c63dad08ca5c957551b0 Mon Sep 17 00:00:00 2001
 From: Ondrej Mosnacek <omosnace@redhat.com>
 Date: Thu, 23 Jan 2020 13:57:14 +0100
 Subject: [PATCH] libsepol: remove leftovers of cil_mem_error_handler
@@ -21,7 +21,7 @@ Signed-off-by: Matt Weber <matthew.weber@rockwellcollins.com>
  2 files changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/cil/src/cil_mem.h b/cil/src/cil_mem.h
-index 902ce13..794f02a 100644
+index 902ce131..794f02a3 100644
 --- a/cil/src/cil_mem.h
 +++ b/cil/src/cil_mem.h
 @@ -36,7 +36,6 @@ void *cil_calloc(size_t num_elements, size_t element_size);
@@ -33,7 +33,7 @@ index 902ce13..794f02a 100644
  #endif /* CIL_MEM_H_ */
  
 diff --git a/cil/src/cil_strpool.c b/cil/src/cil_strpool.c
-index 97d4c4b..2598bbf 100644
+index 97d4c4b9..2598bbf3 100644
 --- a/cil/src/cil_strpool.c
 +++ b/cil/src/cil_strpool.c
 @@ -80,8 +80,8 @@ char *cil_strpool_add(const char *str)
