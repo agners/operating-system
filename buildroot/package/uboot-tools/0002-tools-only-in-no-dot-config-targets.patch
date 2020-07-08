@@ -32,8 +32,8 @@ index 6aa08964ff..fcec83d183 100644
  
  no-dot-config-targets := clean clobber mrproper distclean \
  			 help %docs check% coccicheck \
--			 ubootversion backup tests check qcheck
-+			 ubootversion backup tests tools-only check qcheck
+-			 ubootversion backup tests check qcheck tcheck
++			 ubootversion backup tests tools-only check qcheck tcheck
  
  config-targets := 0
  mixed-targets  := 0

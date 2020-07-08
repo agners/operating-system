@@ -52,7 +52,7 @@ index 00000000000..ddfc5dcdbc0
 +
 +static char *fs_argv[5];
 +
-+int do_fileenv(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
++int do_fileenv(struct cmd_tbl *cmdtp, int flag, int argc, char * const argv[])
 +{
 +	if (argc < 6)
 +		return CMD_RET_USAGE;
