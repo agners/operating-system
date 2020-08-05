@@ -278,8 +278,7 @@ function _fix_disk_spl_gpt() {
     local spl_img="$(path_spl_img)"
 
     sgdisk -t 1:"E3C9E316-0B5C-4DB8-817D-F92DF00215AE" "${hdd_img}"
-    dd if="${BR2_EXTERNAL_HASSOS_PATH}/bootloader/mbr-spl.img" of="${hdd_img}" conv=notrunc bs=512 count=1
-    dd if="${spl_img}" of="${hdd_img}" conv=notrunc bs=512 seek=2 skip=2
+    dd if="${spl_img}" of="${hdd_img}" conv=notrunc bs=512 seek=1 skip=1
 }
 
 

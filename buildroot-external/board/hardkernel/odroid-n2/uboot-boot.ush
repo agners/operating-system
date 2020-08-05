@@ -1,7 +1,15 @@
 
-###########################################
-
-part start mmc ${devnum} 9 mmc_env
+###############################################
+# Script relies on the following partiton setup
+# 1. Boot
+# 2. KernelA
+# 3. SystemA
+# 4. KernelB
+# 5. SystemB
+# 6. BootInfo
+# 7. Overlay
+# 8. Data
+part start mmc ${devnum} 6 mmc_env
 mmc dev ${devnum}
 setenv loadbootstate " \
     echo 'loading env...'; \
@@ -22,8 +30,8 @@ test -n "${BOOT_B_LEFT}" || setenv BOOT_B_LEFT 3
 setenv bootargs_hassos "zram.enabled=1 zram.num_devices=3 apparmor=1 security=apparmor systemd.machine_id=${MACHINE_ID} cgroup_enable=memory"
 
 # HassOS system A/B
-setenv bootargs_a "root=PARTUUID=48617373-06 rootfstype=squashfs ro rootwait"
-setenv bootargs_b "root=PARTUUID=48617373-08 rootfstype=squashfs ro rootwait"
+setenv bootargs_a "root=PARTLABEL=hassos-system0 rootfstype=squashfs ro rootwait"
+setenv bootargs_b "root=PARTLABEL=hassos-system1 rootfstype=squashfs ro rootwait"
 
 usb start
 
@@ -35,16 +43,6 @@ else
   fatload mmc ${devnum}:1 ${fdt_addr_r} meson-g12b-odroid-n2-plus.dtb
 fi
 
-# logical volumes get numbered after physical ones.
-# 1. boot
-# 2. Extended partition
-# 3. Overlay
-# 4. Data
-# 5. KernelA
-# 6. SystemA
-# 7. KernelB
-# 8. SystemB
-# 9. BootInfo
 setenv bootargs
 for BOOT_SLOT in "${BOOT_ORDER}"; do
   if test "x${bootargs}" != "x"; then
@@ -53,14 +51,14 @@ for BOOT_SLOT in "${BOOT_ORDER}"; do
     if test ${BOOT_A_LEFT} -gt 0; then
       setexpr BOOT_A_LEFT ${BOOT_A_LEFT} - 1
       echo "Found valid slot A, ${BOOT_A_LEFT} attempts remaining"
-      setenv load_kernel "ext4load mmc ${devnum}:5 ${kernel_addr_r} Image"
+      setenv load_kernel "ext4load mmc ${devnum}:2 ${kernel_addr_r} Image"
       setenv bootargs "${bootargs_hassos} ${bootargs_a} rauc.slot=A ${cmdline}"
     fi
   elif test "x${BOOT_SLOT}" = "xB"; then
     if test ${BOOT_B_LEFT} -gt 0; then
       setexpr BOOT_B_LEFT ${BOOT_B_LEFT} - 1
       echo "Found valid slot B, ${BOOT_B_LEFT} attempts remaining"
-      setenv load_kernel "ext4load mmc ${devnum}:7 ${kernel_addr_r} Image"
+      setenv load_kernel "ext4load mmc ${devnum}:4 ${kernel_addr_r} Image"
       setenv bootargs "${bootargs_hassos} ${bootargs_b} rauc.slot=B ${cmdline}"
     fi
   fi
