@@ -12,7 +12,7 @@ set -e
 SUPERVISOR_STARTUP_MARKER="/run/supervisor/startup-marker"
 SUPERVISOR_IMAGE="homeassistant/${SUPERVISOR_ARCH}-hassio-supervisor"
 SUPERVISOR_DATA=/mnt/data/supervisor
-SUPERVISOR_IMAGE_ID=$(docker inspect --format='{{.Id}}' "${SUPERVISOR_IMAGE}" || echo "")
+SUPERVISOR_IMAGE_ID=$(docker images -f "reference=${SUPERVISOR_IMAGE}:latest" --format "{{.ID}}" || echo "")
 SUPERVISOR_CONTAINER_ID=$(docker inspect --format='{{.Image}}' hassio_supervisor || echo "")
 
 # Check if previous run left the startup-marker in place. If so, we assume the
@@ -22,7 +22,9 @@ if [ -f "${SUPERVISOR_STARTUP_MARKER}" ]; then
     echo "[WARNING] Supervisor container did not remove the startup marker file. Assuming container image or container corruption."
     docker container rm --force hassio_supervisor || true
     SUPERVISOR_CONTAINER_ID=""
-    docker rmi --force "${SUPERVISOR_IMAGE_ID}" || true
+    # Make sure we delete all supervisor images
+    SUPERVISOR_IMAGE_IDS=$(docker images -f "reference=${SUPERVISOR_IMAGE}" --format "{{.ID}}" | uniq || echo "")
+    docker image rm --force "${SUPERVISOR_IMAGE_IDS}" || true
     SUPERVISOR_IMAGE_ID=""
 fi
 
@@ -59,6 +61,7 @@ if [ -n "${SUPERVISOR_CONTAINER_ID}" ] && [ "${SUPERVISOR_IMAGE_ID}" != "${SUPER
 fi
 
 # If Supervisor container is missing, create it
+touch ${SUPERVISOR_STARTUP_MARKER}
 if [ -z "${SUPERVISOR_CONTAINER_ID}" ]; then
     echo "[INFO] Creating a new Supervisor container..."
     # shellcheck disable=SC2086
@@ -80,6 +83,5 @@ fi
 
 # Run supervisor
 mkdir -p ${SUPERVISOR_DATA}
-touch ${SUPERVISOR_STARTUP_MARKER}
 echo "[INFO] Starting the Supervisor..."
 exec docker container start --attach hassio_supervisor
