@@ -9,12 +9,20 @@ on:
 
 jobs:
   validate_release:
+
     name: Validate release
     runs-on: [ "ubuntu-20.04" ]
     outputs:
       version: ${{ steps.version_check.outputs.version }}
     steps:
       - uses: actions/checkout@v2
+      - uses: agners/get-draft-release@main
+        id: get_draft_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate version
+        run: |
+          echo "Upload url is {{ steps.get_draft_release.outputs.upload_url }}"
       - name: Validate version
         id: version_check
         run: |
