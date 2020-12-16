@@ -1,0 +1,29 @@
+From 5b33ffe1e24415f53fa9168a38b4f9d0dd38b128 Mon Sep 17 00:00:00 2001
+Message-Id: <5b33ffe1e24415f53fa9168a38b4f9d0dd38b128.1608121245.git.stefan@agner.ch>
+In-Reply-To: <9d2f55e3e634cecc53399b1b7f441c971da280ec.1608121245.git.stefan@agner.ch>
+References: <9d2f55e3e634cecc53399b1b7f441c971da280ec.1608121245.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 16 Dec 2020 13:20:11 +0100
+Subject: [PATCH 2/2] Enable CONFIG_RTL8821A to support Realtek RTL8811AU
+ chipset
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 916787f..a3a0cf7 100644
+--- a/Makefile
++++ b/Makefile
+@@ -32,7 +32,7 @@ CONFIG_AUTOCFG_CP = n
+ CONFIG_MULTIDRV = n
+ CONFIG_RTL8188E = n
+ CONFIG_RTL8812A = y
+-CONFIG_RTL8821A = n
++CONFIG_RTL8821A = y
+ CONFIG_RTL8192E = n
+ CONFIG_RTL8723B = n
+ CONFIG_RTL8814A = n
+-- 
+2.29.2
+
