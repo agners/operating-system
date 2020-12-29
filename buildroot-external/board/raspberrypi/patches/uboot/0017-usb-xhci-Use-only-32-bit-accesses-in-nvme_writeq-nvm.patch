@@ -1,0 +1,74 @@
+From 0dba9bf1f72ef134b960b7e9274df6f2f5b25de0 Mon Sep 17 00:00:00 2001
+Message-Id: <0dba9bf1f72ef134b960b7e9274df6f2f5b25de0.1609272120.git.stefan@agner.ch>
+In-Reply-To: <a04331a6ba7334282836bbaa76e979c4e6be3900.1609272120.git.stefan@agner.ch>
+References: <a04331a6ba7334282836bbaa76e979c4e6be3900.1609272120.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Tue, 29 Dec 2020 18:45:41 +0100
+Subject: [PATCH 17/17] usb: xhci: Use only 32-bit accesses in
+ nvme_writeq/nvme_readq
+
+There might be hardware configurations where 64-bit data accesses
+to NVMe registers are not supported properly.  This patch removes
+the readq/writeq so always two 32-bit accesses are used to read/write
+64-bit NVMe registers, similarly as it is done in Linux kernel.
+
+This patch fixes operation of NVMe devices on RPi4 Broadcom
+BCM2711 SoC based board, where the VL805 USB XHCI controller is
+connected to the PCIe Root Complex, which is attached to the system
+through the SCB bridge.
+
+Even though the architecture is 64-bit the PCIe BAR is 32-bit and likely
+the 64-bit wide register accesses initiated by the CPU are not properly
+translated to a sequence of 32-bit PCIe accesses.
+nvme_readq(), for example, always returns same value in upper and lower
+32-bits, e.g. 0x3c033fff3c033fff which lead to NVMe devices to fail
+probing.
+
+This fix is analogous to commit 8e2ab05000ab ("usb: xhci: Use only
+32-bit accesses in xhci_writeq/xhci_readq").
+
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Cc: Zhikang Zhang <zhikang.zhang@nxp.com>
+Cc: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+Cc: Matthias Brugger <mbrugger@suse.com>
+Signed-off-by: Stefan Agner <stefan@agner.ch>
+---
+ drivers/nvme/nvme.h | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/drivers/nvme/nvme.h b/drivers/nvme/nvme.h
+index 0e8cb221a7..aa4b3bac67 100644
+--- a/drivers/nvme/nvme.h
++++ b/drivers/nvme/nvme.h
+@@ -535,28 +535,20 @@ struct nvme_completion {
+  */
+ static inline u64 nvme_readq(__le64 volatile *regs)
+ {
+-#if BITS_PER_LONG == 64
+-	return readq(regs);
+-#else
+ 	__u32 *ptr = (__u32 *)regs;
+ 	u64 val_lo = readl(ptr);
+ 	u64 val_hi = readl(ptr + 1);
+ 
+ 	return val_lo + (val_hi << 32);
+-#endif
+ }
+ 
+ static inline void nvme_writeq(const u64 val, __le64 volatile *regs)
+ {
+-#if BITS_PER_LONG == 64
+-	writeq(val, regs);
+-#else
+ 	__u32 *ptr = (__u32 *)regs;
+ 	u32 val_lo = lower_32_bits(val);
+ 	u32 val_hi = upper_32_bits(val);
+ 	writel(val_lo, ptr);
+ 	writel(val_hi, ptr + 1);
+-#endif
+ }
+ 
+ struct nvme_bar {
+-- 
+2.29.2
+
