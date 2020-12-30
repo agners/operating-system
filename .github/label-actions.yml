@@ -1,0 +1,8 @@
+assume-fixed:
+  comment: |
+    This issue is assumed to be fixed in the latest stable release. Please
+    reopen in case you can still reproduce the issue with the latest stable
+    release. You can find the latest stable release at
+    https://github.com/home-assistant/operating-system/releases/latest
+  close: true
+
