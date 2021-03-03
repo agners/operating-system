@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+modprobe sht3x
+
+if grep -q test=full-load /proc/cmdline; then
+	stress-ng --cpu 4 &
+fi
+if grep -q test=partial-load /proc/cmdline; then
+	stress-ng --cpu 1 &
+fi
+if grep -q test=load-io /proc/cmdline; then
+	stress-ng --hdd 1 &
+fi
+
+
+DATAFILE=temperature-$(date +%Y%m%d-%H%M%S).log
+echo "Uptime,CPUTemp,NVMeTemp,CaseTemp,LoadAvg" > "${DATAFILE}"
+while true; do
+	{
+		awk '{printf $1","}' /proc/uptime
+		awk '{printf $1","}' /sys/devices/virtual/thermal/thermal_zone0/temp
+		awk '{printf $1","}' /sys/class/nvme/nvme0/device/hwmon/hwmon*/temp1_input
+		awk '{printf $1","}' /sys/bus/i2c/drivers/sht3x/1-0044/hwmon/hwmon*/temp1_input
+		awk '{printf $1","}' /proc/loadavg
+		echo ""
+	} >> "${DATAFILE}"
+	sleep 1
+done
