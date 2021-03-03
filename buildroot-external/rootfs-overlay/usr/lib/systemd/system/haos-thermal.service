@@ -1,0 +1,12 @@
+[Unit]
+Description=HassOS Configuration Manager
+After=hassos-bind.target network.target
+RequiresMountsFor=/mnt/data
+
+[Service]
+Type=oneshot
+WorkingDirectory=/mnt/data
+ExecStart=/usr/bin/haos-thermal
+
+[Install]
+WantedBy=multi-user.target
