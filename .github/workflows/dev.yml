@@ -4,12 +4,11 @@ name: Development build
 
 on:
   workflow_dispatch:
-  pull_request:
-    types: [opened,synchronize,labeled]
+  issue_comment:
+    types: [created]
 
 jobs:
   prepare:
-    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'run-dev-build') }}
     name: Prepare build
     runs-on: [ "ubuntu-20.04" ]
     outputs:
@@ -17,6 +16,10 @@ jobs:
       version_dev: ${{ steps.version_dev.outputs.version_dev }}${{ steps.version_pr.outputs.version_pr }}
       matrix: ${{ steps.generate_matrix.outputs.result }}
     steps:
+      - name: debug
+        run: |
+          echo "${{ toJson(github.event) }}"
+          echo "${{ toJson(github) }}"
       - name: Generate Development build version
         shell: bash
         id: version_dev
