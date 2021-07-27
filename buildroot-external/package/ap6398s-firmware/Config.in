@@ -1,0 +1,4 @@
+config BR2_PACKAGE_AP6398S_FIRMWARE
+	bool "Wi-Fi/Bluetooth firmware for Broadcom AP6398S/BCM4359"
+	help
+	  Wi-Fi/Bluetooth firmware for Broadcom AP6398S/BCM4359.
