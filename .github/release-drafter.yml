@@ -1,5 +1,5 @@
-name-template: $NEXT_MAJOR_VERSION $NEXT_MINOR_VERSION
-version-template: "$MAJOR.$MINOR.$PATCH"
+name-template: Home Assistant OS $RESOLVED_VERSION
+version-template: "$MAJOR.$MINOR"
 categories:
   - title: 'Home Assistant Operating System'
     label: 'os'
