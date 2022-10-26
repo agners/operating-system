@@ -38,7 +38,7 @@ while true; do
 			awk '{printf $1","}' /sys/bus/i2c/drivers/sht3x/1-0044/hwmon/hwmon*/temp1_input
 		fi
 		if [ -d /sys/class/nvme/nvme0/ ]; then
-			awk '{printf $1","}' /sys/class/nvme/nvme0/device/hwmon/hwmon*/temp1_input
+			awk '{printf $1","}' /sys/class/nvme/nvme0/hwmon*/temp1_input
 		fi
 		echo ""
 	} >> "${DATAFILE}"
