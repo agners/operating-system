@@ -19,12 +19,13 @@ DATAFILE=temperature-$(date +%Y%m%d-%H%M%S).log
 
 {
 	echo -n "Uptime,LoadAvg,CPUFreq,Throttle,CPUTemp,"
-	if [ -d /sys/class/nvme/nvme0/ ]; then
+	if [ -d /sys/bus/i2c/drivers/sht3x/1-0044/ ]; then
 		echo -n "CaseTemp,"
 	fi
-	if [ -d /sys/bus/i2c/drivers/sht3x/1-0044/ ]; then
+	if [ -d /sys/class/nvme/nvme0/ ]; then
 		echo -n "NVMeTemp,"
 	fi
+	echo ""
 } > "${DATAFILE}"
 
 while true; do
