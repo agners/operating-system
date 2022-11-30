@@ -32,4 +32,4 @@ version-resolver:
   minor:
     labels:
       - 'minor'
-  default: minor
+  default: major
