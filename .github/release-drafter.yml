@@ -21,7 +21,6 @@ categories:
     label: 'board/khadas'
   - title: 'Generic aarch64'
     label: 'board/generic-aarch64'
-filter-by-commitish: true
 template: |
   ## Changes
 
