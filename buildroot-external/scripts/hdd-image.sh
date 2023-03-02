@@ -101,6 +101,27 @@ function _prepare_disk_image() {
 
 
 function create_disk_image() {
+    BOARD_NAME="$(basename ${BOARD_DIR})"
+    GENIMAGE_CFG="${BOARD_DIR}/genimage-${BOARD_NAME}.cfg"
+    GENIMAGE_TMP="${BUILD_DIR}/genimage.tmp"
+
+    trap 'rm -rf "${ROOTPATH_TMP}"' EXIT
+    ROOTPATH_TMP="$(mktemp -d)"
+
+    echo "PWD is $(pwd)"
+
+    if [ -f ${GENIMAGE_CFG} ]; then
+        echo "Running genimage..."
+
+        rm -rf "${GENIMAGE_TMP}"
+
+        (cd ${BINARIES_DIR}; genimage \
+	    --rootpath "${ROOTPATH_TMP}"   \
+	    --tmppath "${GENIMAGE_TMP}"    \
+	    --inputpath "${BINARIES_DIR}/boot/"  \
+	    --outputpath "${BINARIES_DIR}" \
+	    --config "${GENIMAGE_CFG}")
+    fi
     _prepare_disk_image
 
     if [ "${BOOT_SYS}" == "mbr" ]; then
