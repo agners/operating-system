@@ -10,8 +10,7 @@
   - 0002-add-arm64-dts-rockchip-orangepi-4-lts.patch
   - 0003-mmc-sdhci-allow-disabling-sdma-in-spl.patch
 - Specified fdtfile=rk3399-orangepi-4-lts.dtb in /buildroot-external/board/orangepi/orangepi-4-lts/boot-env.txt
-- Updated board defconfig kernel version to 6.1.12 (from 5.15.80)
-- Changed branch from haos 10.0 (dev) to haos 9.5 (stable)
+- Updated board defconfig kernel version to 6.1.19
 - Set 'CONFIG_MOTORCOMM_PHY=y' in buildroot-external/kernel/device-support.config for ethernet support
 
 # Current issues:
