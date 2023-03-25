@@ -1,3 +1,30 @@
+# Forked Home Assistant Operating System repository for the Orange Pi 4 LTS 3GB RAM/eMMC variant
+
+- Added defconfig for Orange Pi 4 LTS: buildroot-external/configs/opi4-lts_defconfig
+- Added manufacturer directory: buildroot-external/board/orangepi/
+- Added board specific config: buildroot-external/board/orangepi/orangepi-4-lts/
+- Added linux patches for board support (rk3399-orangepi-4-lts.dtb) and ethernet: buildroot-external/board/orangepi/patches/linux/
+  - 0001-arm64-dts-rockchip-add-OrangePi-4-LTS.patch
+  - 0002-Add-UT8531C-phy-support.patch - From manjaro-arm: 1025-Add-YT8531C-phy-support.patch
+- Added u-boot patches from manjaro for u-boot 2022.04 in buildroot-external/patches/uboot/ (from https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-orangepi4-lts/-/tree/main/)
+  - 0002-add-arm64-dts-rockchip-orangepi-4-lts.patch
+  - 0003-mmc-sdhci-allow-disabling-sdma-in-spl.patch
+- Specified fdtfile=rk3399-orangepi-4-lts.dtb in /buildroot-external/board/orangepi/orangepi-4-lts/boot-env.txt
+- Updated board defconfig kernel version to 6.1.12 (from 5.15.80)
+- Changed branch from haos 10.0 (dev) to haos 9.5 (stable)
+- Set 'CONFIG_MOTORCOMM_PHY=y' in buildroot-external/kernel/device-support.config for ethernet support
+
+# Current issues:
+
+- Will only boot from SD card if eMMC bootloader is wiped: use armbian booted from sdcard to execute: dd if=/dev/zero of=/dev/mmcblk0 bs=1M count=10
+- Boots into HAOS 9.5
+- No wifi or bluetooth, requires firmware for uwe5622
+
+# Working:
+
+- HDMI output
+- Ethernet
+
 # Home Assistant Operating System
 
 Home Assistant Operating System (formerly HassOS) is a Linux based operating system optimized to host [Home Assistant](https://www.home-assistant.io) and its [Add-ons](https://www.home-assistant.io/addons/).
