@@ -1,0 +1,5 @@
+#!/bin/sh
+# This is a script to activate UWE5622 Firmware
+
+/usr/sbin/rfkill unblock all
+/usr/bin/hciattach_uwe -n -s 1500000 /dev/ttyBT0 sprd &

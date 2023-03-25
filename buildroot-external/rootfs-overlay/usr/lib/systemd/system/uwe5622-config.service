@@ -1,0 +1,13 @@
+[Unit]
+Description=Unisoc UWE5622 Firmware
+After=bluetooth.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/uwe5622-config
+TimeoutSec=0
+RemainAfterExit=yes
+SysVStartPriority=99
+
+[Install]
+WantedBy=multi-user.target
