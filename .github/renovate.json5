@@ -8,7 +8,7 @@
   "regexManagers": [
     // Upstream Linux kernel dependency update
     {
-      "fileMatch": ["^buildroot-external/configs/{generic_aarch64,generic_x86_64,ova,tinker,odroid_*,khadas_vim3}_defconfig$"],
+      "fileMatch": ["^buildroot-external\/configs\/(generic_aarch64|generic_x86_64|ova|tinker|odroid_.*|khadas_vim3)_defconfig$"],
       "matchStringsStrategy": "any",
       "matchStrings": [
         "BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE=\"(?<currentValue>.*?)\"",
