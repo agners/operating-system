@@ -4,6 +4,7 @@
     "enabled": true
   },
   "regexManagers": [
+    // Upstream Linux kernel dependency update
     {
       "fileMatch": ["buildroot-external/configs/generic_aarch64_defconfig"],
       "matchStringsStrategy": "any",
