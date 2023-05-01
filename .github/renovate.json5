@@ -10,18 +10,33 @@
     {
       "fileMatch": [
         "^buildroot-external\/configs\/(generic_aarch64|generic_x86_64|ova|tinker|odroid_.*|khadas_vim3)_defconfig$",
-        "Documentation/kernel.md"
+        "Documentation/kernel.md",
       ],
       "matchStringsStrategy": "any",
       "matchStrings": [
         "BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE=\"(?<currentValue>.*?)\"",
-        "| (Open Virtual Appliance|Generic aarch64|Generic x86-64|Tinker Board|ODROID-.*|Khadas VIM3) | (?<currentValue>.*?) |"
+        "| (Open Virtual Appliance|Generic aarch64|Generic x86-64|Tinker Board|ODROID-.*|Khadas VIM3) | (?<currentValue>.*?) |",
       ],
       "depNameTemplate": "linux-6.1-lts",
       "packageNameTemplate": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
       "datasourceTemplate": "git-tags",
       "extractVersionTemplate": "^v(?<version>6\.1\..*)$",
-      "versioningTemplate": "semver-coerced"
+      "versioningTemplate": "semver-coerced",
+    },
+    {
+      "fileMatch": [
+        "^buildroot-external\/configs\/(rpi.*|yellow)_defconfig$",
+        "Documentation/kernel.md",
+      ],
+      "matchStringsStrategy": "any",
+      "matchStrings": [
+        "BR2_LINUX_KERNEL_CUSTOM_TARBALL_LOCATION=\"https://github.com/raspberrypi/linux/archive/(?<currentValue>.*?).tar.gz\"",
+        "| (Raspberry Pi.*|Home Assistant Yellow) | (?<currentValue>.*?) |",
+      ],
+      "depNameTemplate": "linux-rpi",
+      "packageNameTemplate": "raspberrypi/linux",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver-coerced",
     }
   ]
 }
