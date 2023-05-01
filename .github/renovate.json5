@@ -13,10 +13,11 @@
       "matchStrings": [
         "BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE=\"(?<currentValue>.*?)\"",
       ],
-      "depNameTemplate": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
+      "depNameTemplate": "kernel-stable",
       "datasourceTemplate": "git-tags",
       "extractVersionTemplate": "^v(?<version>.*)$",
-      "versioningTemplate": "semver-coerced"
+      "versioningTemplate": "semver-coerced",
+      "sourceUrl": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
     }
   ]
 }
