@@ -1,5 +1,7 @@
 {
   "labels": ["dependencies"],
+  "dependencyDashboard": true,
+  "commitMessageTopic": "{{depName}}",
   "git-submodules": {
     "enabled": true
   },
@@ -13,7 +15,8 @@
       ],
       "depNameTemplate": "torvalds/linux",
       "datasourceTemplate": "github-tags",
-      "extractVersionTemplate": "^v(?<version>.*)$"
+      "extractVersionTemplate": "^v(?<version>.*)$",
+      "versioningTemplate": "semver-coerced"
     }
   ]
 }
