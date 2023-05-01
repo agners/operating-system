@@ -13,9 +13,9 @@
       "matchStrings": [
         "BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE=\"(?<currentValue>.*?)\"",
       ],
-      "depNameTemplate": "torvalds/linux",
-      "datasourceTemplate": "github-tags",
-      "extractVersionTemplate": "^v(?<version>.*)$",
+      "depNameTemplate": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
+      "datasourceTemplate": "git-tags",
+      "extractVersionTemplate": "^v(?<version>6\.1\..*)$",
       "versioningTemplate": "semver-coerced"
     }
   ]
