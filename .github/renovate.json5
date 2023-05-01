@@ -15,7 +15,7 @@
       "matchStringsStrategy": "any",
       "matchStrings": [
         "BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE=\"(?<currentValue>.*?)\"",
-        "| (Open Virtual Appliance|Generic aarch64|Generic x86-64|Tinker Board|ODROID-.*|Khadas VIM3) | (?<currentValue>.*?) |",
+        "\\| (Open Virtual Appliance|Generic aarch64|Generic x86-64|Tinker Board|ODROID-.*|Khadas VIM3) \\| (?<currentValue>.*?) \\|",
       ],
       "depNameTemplate": "linux-6.1-lts",
       "packageNameTemplate": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
@@ -31,7 +31,7 @@
       "matchStringsStrategy": "any",
       "matchStrings": [
         "BR2_LINUX_KERNEL_CUSTOM_TARBALL_LOCATION=\"https://github.com/raspberrypi/linux/archive/(?<currentValue>.*?).tar.gz\"",
-        "| (Raspberry Pi.*|Home Assistant Yellow) | (?<currentValue>.*?) |",
+        "\\| (Raspberry Pi.*|Home Assistant Yellow) \\| (?<currentValue>.*?) \\|",
       ],
       "depNameTemplate": "linux-rpi",
       "packageNameTemplate": "raspberrypi/linux",
