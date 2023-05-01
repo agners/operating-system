@@ -15,7 +15,7 @@
       ],
       "depNameTemplate": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
       "datasourceTemplate": "git-tags",
-      "extractVersionTemplate": "^v(?<version>6\\.1\\..*)$",
+      "extractVersionTemplate": "^v(?<version>.*)$",
       "versioningTemplate": "semver-coerced"
     }
   ]
