@@ -2,5 +2,16 @@
   "labels": ["dependencies"],
   "git-submodules": {
     "enabled": true
-  }
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["buildroot-external/configs/generic_aarch64_defconfig"],
+      "matchStringsStrategy": "any",
+      "matchStrings": [
+        "BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE=\"(?<currentValue>.*?)\"",
+      ],
+      "depNameTemplate": "torvalds/linux",
+      "datasourceTemplate": "github-tags"
+    }
+  ]
 }
