@@ -38,5 +38,17 @@
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "semver-coerced",
     }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["git-tags"],
+      "matchDepNames": ["linux-6.1-lts"],
+      "addLabels": ["board/generic-aarch64", "board/generic-x86-64", "board/khadas", "board/odroid", "board/ova", "board/tinker", "linux"],
+    },
+    {
+      "matchDatasources": ["git-tags"],
+      "matchDepNames": ["linux-rpi"],
+      "addLabels": ["board/raspberrypi", "board/yellow", "linux"],
+    },
   ]
 }
