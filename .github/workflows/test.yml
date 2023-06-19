@@ -26,7 +26,7 @@ jobs:
           ls -la /mnt
           cat /mnt/DATALOSS_WARNING_README.txt
           echo "Test /mnt"
-          dd if=/dev/zero of=/mnt/testfile bs=1G count=1 oflag=direct
+          sudo dd if=/dev/zero of=/mnt/testfile bs=1G count=1 oflag=direct
           echo "Test /"
-          dd if=/dev/zero of=/testfile bs=1G count=1 oflag=direct
+          sudo dd if=/dev/zero of=/testfile bs=1G count=1 oflag=direct
 
