@@ -1,0 +1,28 @@
+# Home Assistant Operating System build workflow
+
+name: Test action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    runs-on: [ "ubuntu-22.04" ]
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v2
+      - name: Execute stuff
+        shell: bash
+        run: |
+          df -h
+          pwd
+          ls -lah
+          df -h .
+          echo "And the mounts are"
+          cat /proc/mounts
+          echo "Content of /mnt"
+          ls -la /mnt
+          cat /mnt/DATALOSS_WARNING_README.txt
+
