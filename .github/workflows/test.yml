@@ -16,6 +16,7 @@ jobs:
       - name: Execute stuff
         shell: bash
         run: |
+          set -x
           df -h
           pwd
           ls -lah
@@ -29,4 +30,8 @@ jobs:
           sudo dd if=/dev/zero of=/mnt/testfile bs=1G count=1 oflag=direct
           echo "Test /"
           sudo dd if=/dev/zero of=/testfile bs=1G count=1 oflag=direct
+          sudo rm -rf /usr/share/dotnet
+          df -h
+          sudo rm -rf /usr/local/lib/android
+          df -h
 
