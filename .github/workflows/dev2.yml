@@ -104,6 +104,18 @@ jobs:
           sudo rm -rf /usr/local/lib/android/sdk/ndk
           sudo rm -rf /opt/hostedtoolcache/CodeQL
 
+      - name: Cache downloads
+        uses: actions/cache@v3
+        with:
+          path: /mnt/cache/dl
+          key: haos-dl
+
+      - name: Cache object files
+        uses: actions/cache@v3
+        with:
+          path: /mnt/cache/cc
+          key: haos-cc
+
       - name: Build
         run: |
           BUILDER_UID="$(id -u)"
