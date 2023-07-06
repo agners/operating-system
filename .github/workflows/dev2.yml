@@ -1,6 +1,6 @@
 # Home Assistant Operating System build workflow
 
-name: Development build
+name: Development build test
 
 on:
   workflow_dispatch:
@@ -97,6 +97,12 @@ jobs:
         run: |
           echo -e "-----BEGIN CERTIFICATE-----\n${RAUC_CERTIFICATE}\n-----END CERTIFICATE-----" > cert.pem
           echo -e "-----BEGIN PRIVATE KEY-----\n${RAUC_PRIVATE_KEY}\n-----END PRIVATE KEY-----" > key.pem
+
+      - name: Free space on build drive
+        run: |
+          # Inspired by https://github.com/easimon/maximize-build-space/blob/v7/action.yml
+          sudo rm -rf /usr/local/lib/android/sdk/ndk
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
 
       - name: Build
         run: |
