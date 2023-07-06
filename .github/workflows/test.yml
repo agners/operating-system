@@ -34,4 +34,9 @@ jobs:
           df -h
           sudo rm -rf /usr/local/lib/android/sdk/ndk
           df -h
-
+          sudo rm -rf /opt/ghc
+          df -h
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          df -h
+          sudo docker image prune --all --force
+          df -h
