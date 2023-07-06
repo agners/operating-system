@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ova",
+    "defconfig": "ova",
+    "runner": "x86-64-runner",
+    "label": "board/ova"
+  }
+]
