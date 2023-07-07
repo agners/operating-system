@@ -103,6 +103,9 @@ jobs:
           # Inspired by https://github.com/easimon/maximize-build-space/blob/v7/action.yml
           sudo rm -rf /usr/local/lib/android/sdk/ndk
           sudo rm -rf /opt/hostedtoolcache/CodeQL
+          # Make sure cache action can restore this lcoation
+          sudo mkdir /mnt/cache
+          sudo chown -R runner:runner /mnt/cache
 
       - name: Cache downloads
         uses: actions/cache@v3
@@ -137,6 +140,20 @@ jobs:
           remote_port: ${{ secrets.DEV_PORT }}
           remote_user: ${{ secrets.DEV_USERNAME }}
           remote_key: ${{ secrets.DEV_SSH_KEY }}
+
+      - uses: sigstore/cosign-installer@main
+        with:
+          cosign-release: ${{ env.COSIGN_VERSION }}
+
+      - name: Upload file
+        run: |
+          cosign upload blob -f haos_${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.raucb ghcr.io/home-assistant/operating-system/${{ needs.validate_release.outputs.version }}:q
+
+      - name: Sign Cosign
+        run: |
+          cosign sign --yes ghcr.io/home-assistant/version/${{ matrix.path }}
+          cosign sign-blob --yes ${{ matrix.path }} --bundle ${{ matrix.path }}.sig
+
 
   bump_version:
     name: Bump dev channel version
