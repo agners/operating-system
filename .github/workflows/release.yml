@@ -39,7 +39,7 @@ jobs:
         id: generate_matrix
         with:
           script: |
-            const boards = require('./.github/workflows/matrix.json')
+            const boards = require('./.github/workflows/small-matrix.json')
             return { "board": boards }
 
   build:
