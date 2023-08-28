@@ -31,7 +31,7 @@ $(TARGETS_CONFIG): %-config:
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) "$*_defconfig"
 
 $(TARGETS): %: %-config
-	@echo "build $@"
+	@echo "build very normal $@"
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) VERSION_DEV=$(VERSION_DEV)
 
 	# Do not clean when building for one target
