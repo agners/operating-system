@@ -25,11 +25,11 @@ jobs:
       build_container_image: ghcr.io/${{ github.repository_owner }}/haos-builder@${{ steps.build_haos_builder.outputs.digest }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get Major/Minor version
         id: version_main
         run: |
@@ -91,7 +91,7 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           persist-credentials: false
