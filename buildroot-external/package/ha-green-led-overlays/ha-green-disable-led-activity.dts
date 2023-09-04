@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright 2023 Nabu Casa, Inc.
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "rockchip,rk3566-ha-green";
+
+	fragment@0 {
+		target = <&led_activity>;
+		__overlay__ {
+			linux,default-trigger = "none";
+		};
+	};
+};
+

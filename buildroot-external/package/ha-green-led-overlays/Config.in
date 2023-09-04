@@ -1,0 +1,5 @@
+menuconfig BR2_PACKAGE_HA_GREEN_LED_OVERLAYS
+	bool "Device-tree overlays for Home Assistant Green LEDs"
+	help
+	  This builds device tree overlays specifically for
+	  Home Assistant Green.
