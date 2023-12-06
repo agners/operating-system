@@ -1,14 +1,24 @@
 #!/bin/sh
 
+set -e
+
 # RAUC hook script for Raspberry Pi firmwaree tryboot
 # Meant to be usesd as a RAUC bootloader-custom-backend script.
+
+bootargs_a="root=PARTUUID=8d3d53e3-6d49-4c38-8349-aff6859e82fd rootfstype=squashfs ro rauc.slot=A"
+bootargs_b="root=PARTUUID=a3ec664e-32ce-4665-95ea-7ae90ce9aa20 rootfstype=squashfs ro rauc.slot=B"
 
 case "$1" in
     get-primary)
         # Actions to be performed when getting the primary bootloader
         # Example: Output the path to the current primary bootloader
         echo "tryboot get-primary" >&2
-        echo "A"
+        if [ ! -f /mnt/boot/bootstate.txt ]; then
+            echo "Could not find bootstate.txt!" >&2a
+            exit 1
+        fi
+
+        echo "$(cut -b 1 /mnt/boot/bootstate.txt)"
         ;;
 
     set-primary)
