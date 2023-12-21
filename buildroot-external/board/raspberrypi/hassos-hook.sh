@@ -8,7 +8,10 @@ function hassos_pre_image() {
         "${BINARIES_DIR}/u-boot.bin" \
         "${BINARIES_DIR}/boot.scr"
     cp "${BINARIES_DIR}"/*.dtb "${BOOT_DATA}/"
-    cp -r "${BINARIES_DIR}/rpi-firmware/"* "${BOOT_DATA}/"
+
+    if [ -d "${BOARD_DIR}/rpi-firmware/" ]; then
+        cp -r "${BINARIES_DIR}/rpi-firmware/"* "${BOOT_DATA}/"
+    fi
     if [ -f "${BOARD_DIR}/config.txt" ]; then
         cp "${BOARD_DIR}/config.txt" "${BOOT_DATA}/config.txt"
     else
