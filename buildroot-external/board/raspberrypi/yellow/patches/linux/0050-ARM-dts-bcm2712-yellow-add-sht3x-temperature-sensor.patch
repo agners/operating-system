@@ -1,0 +1,57 @@
+From 4a68548d95373734fad7d4a6fcff3b5705f7213f Mon Sep 17 00:00:00 2001
+Message-ID: <4a68548d95373734fad7d4a6fcff3b5705f7213f.1733155485.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Mon, 2 Dec 2024 12:22:18 +0100
+Subject: [PATCH] ARM: dts: bcm2712: yellow: add sht3x temperature sensor
+
+Add device tree node to support Sensirion SHT35 for thermal testing.
+
+Signed-off-by: Stefan Agner <stefan@agner.ch>
+---
+ arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts | 9 +++++++++
+ .../boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts      | 9 +++++++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
+index b3d57a53d222..430db8f090fe 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
++++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
+@@ -557,6 +557,15 @@ &i2c1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c1_pins>;
+ 	clock-frequency = <100000>;
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	sht3x: sht3x@44 {
++		compatible = "sensirion,sht3x";
++		reg = <0x44>;
++		status = "okay";
++	};
+ };
+ 
+ &i2c6 {
+diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts
+index c85d608da204..1adb778e90b6 100644
+--- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts
++++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts
+@@ -916,6 +916,15 @@ &i2c1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&rp1_i2c1_2_3>;
+ 	clock-frequency = <100000>;
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	sht3x: sht3x@44 {
++		compatible = "sensirion,sht3x";
++		reg = <0x44>;
++		status = "okay";
++	};
+ };
+ 
+ /* Board-level I2C (RTC and I2S audio) */
+-- 
+2.47.1
+
